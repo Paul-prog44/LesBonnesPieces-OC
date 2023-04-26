@@ -1,4 +1,4 @@
-import { ajoutListenersAvis,  ajoutListenerEnvoyerAvis, afficherAvis } from "./avis.js";
+import { ajoutListenersAvis,  ajoutListenerEnvoyerAvis } from "./avis.js";
 
 //Récupération des pièces éventuellement stockées en localstorage
 let pieces = window.localStorage.getItem("pieces");
@@ -6,7 +6,7 @@ let pieces = window.localStorage.getItem("pieces");
 
 if (pieces === null){
     // Récupération des pièces depuis l'API
-    const reponse = await fetch('http://localhost:8081/pieces/');
+    const reponse = await fetch('http://localhost:8081/pieces');
     pieces = await reponse.json();
     // Transformation des pièces en JSON
     const valeurPieces = JSON.stringify(pieces);
@@ -65,11 +65,6 @@ for (let i = 0; i <pieces.length; i++) {
     const id = pieces[i].id
     const avisJson = window.localStorage.getItem(`avis-pieces-${id}`)
     const avis = JSON.stringify(avisJson)
-
-    if (avis !==null) {
-        const pieceElement = document.querySelector(`article[data-id="${id}"]`)
-        afficherAvis(pieceElement, avis)
-    }
 }
 
  const boutonTrier = document.querySelector(".btn-trier");
